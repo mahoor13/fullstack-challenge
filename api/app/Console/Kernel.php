@@ -15,7 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // run schedule every 5 seconds
+        $schedule->command('weather:schedule')
+            ->onOneServer()
+            ->everyMinute();
     }
 
     /**
