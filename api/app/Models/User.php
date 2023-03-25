@@ -39,4 +39,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function weatherHistories()
+    {
+        return $this->hasMany(WeatherHistory::class);
+    }
+
+    public function lastWeatherHistory()
+    {
+        return $this->hasOne(WeatherHistory::class)
+            ->orderByDesc('created_at')
+            ->limit(1);
+    }
 }

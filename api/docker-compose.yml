@@ -1,12 +1,18 @@
-name: fullstack-challenge
+#name: fullstack-challenge
 services:
     app:
         build:
             context: ./docker
         ports:
             - "80:80"
+        restart: always
         volumes:
             - .:/var/www/html
+        environment:
+            - OPENWAETHER_API_KEY=
+        depends_on:
+            - mysql
+            - redis
 
     mysql:
         image: mysql:8

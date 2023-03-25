@@ -13,7 +13,7 @@ Using Laravel and VueJS, create an application which shows the weather for a set
 - This is not a designer test so the frontend does not have to look "good", but of course bonus points if you can make it look appealing. 
 
 ## Things to consider:
-- Chose your own weather api such as https://openweathermap.org/api or https://www.weather.gov/documentation/services-web-api.
+- Chose your own weather api such as https://openweathermap.org/api (registration needed) or https://www.weather.gov/documentation/services-web-api.
 - Testability.
 - Best practices.
 - Design patterns.
@@ -29,20 +29,13 @@ Using Laravel and VueJS, create an application which shows the weather for a set
 ### API
 - Navigate to `/api` folder
 - Ensure version docker installed is active on host
-- Copy .env.example: `cp .env.example .env`
+- Add OPENWAETHER_API_KEY=<your API KEY> to the docker-compose.yml file
 - Start docker containers `docker compose up` (add `-d` to run detached)
-- Connect to container to run commands: `docker exec -it fullstack-challenge-app-1 bash`
-  - Make sure you are in the `/var/www/html` path
-  - Install php dependencies: `composer install`
-  - Setup app key: `php artisan key:generate`
-  - Migrate database: `php artisan migrate` 
-  - Seed database: `php artisan db:seed`
-  - Run tests: `php artisan test`
-- Visit api: `http://localhost`
+- Visit api: `http://localhost:80` (if this address / port changed you should set the correct address in frontend/.env file)
 
 ### Frontend
 - Navigate to `/frontend` folder
-- Ensure nodejs v18 is active on host
+- Ensure nodejs v16+ is active on host
 - Install javascript dependencies: `npm install`
 - Run frontend: `npm run dev`
 - Visit frontend: `http://localhost:5173`

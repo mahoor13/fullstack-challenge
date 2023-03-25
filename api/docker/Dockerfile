@@ -4,7 +4,8 @@ RUN apt-get update
 
 RUN apt-get install -y \
     pkg-config  \
-    libzip-dev
+    libzip-dev \
+    supervisor
 
 RUN docker-php-ext-install \
     mysqli \
@@ -16,7 +17,11 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+COPY ./composer /usr/local/bin
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN a2enmod rewrite
-RUN service apache2 restart
+RUN a2enmod rewrite && \
+    service apache2 restart
+
+COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
